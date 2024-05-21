@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatt sida</title>
+    <link rel="stylesheet" type="text/css" href="../style.css" />
+    <script src="../script.js"></script>
+</head>
+<body>
+    <nav id="nav">
+        <ul>
+            <li><a href="/">Hem</a></li>
+            <li><a href="/login">Logga in</a></li>
+            <li><a href="/register">Registrera</a></li>
+            <li><a href="/profil">Profil</a></li>
+        </ul>
+    </nav>
+    <div id="container">
+        <div id="left-child">
+            <h1>Profil</h1>
+            <!-- Display profile picture and user's name -->
+            <div class="profile-info-container">
+            <img src="{{#if profile_picture}}{{ profile_picture }}{{else}}/profile_pictures/default_pfp.png{{/if}}" alt="Profile Picture" style="height: 150px; width: 150px; border-radius: 50%;">
+                <div id="profile-info">
+                    <p>{{ username }}</p>
+                    <p>{{ bio }}</p>
+                </div>
+            </div>
+            <!-- Profile picture upload form -->
+            <button class="btn btn-primary" id="edit-profile-btn-1">Ändra profil</button>
+            <div id="form-container">
+                <form action="/change_profile" method="POST" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <input type="file" class="form-control" id="image" name="image">
+                    </div>
+                    <div class="mb-3">
+                        <label for="username">Användarnamn:</label>
+                        <input type="text" class="form-control" id="username" name="username" value="{{ username }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="bio">Bio:</label>
+                        <textarea class="form-control" id="bio" name="bio">{{ bio }}</textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="edit-profile-btn-2">Ändra profil</button>
+                </form>
+            </div>
+        </div>
+        <div id="middle-child">
+            <h1>Dina inlägg</h1>
+            <ul>
+                {{#each posts}}
+                <li>
+                    <div style="display: flex;">
+                        <img src="{{#if profile_picture}}{{ profile_picture }}{{else}}/profile_pictures/default_pfp.png{{/if}}" alt="Profile Picture" style="height: 45px; width: 45px; border-radius: 50%;">
+                        <p style="margin-left: 10px;">{{account}}</p>
+                    </div>
+                    <h2>{{caption}}</h2>
+                    <p>{{description}}</p>
+                    <img src="{{image_path}}" alt="Post Image">
+                    <div id="feedback">
+                        <div class="feedback-buttons">
+                            <form action="/like" method="POST">
+                                <input type="hidden" name="postId" value="{{this.id}}">
+                                <button id="like-button" {{#if this.hasLiked}}disabled{{/if}}>Like</button>
+                                <p>{{#if this.likes}}{{this.likes}}{{else}}0{{/if}}</p>
+                            </form>
+
+                        </div>
+                        <div class="feedback-buttons">
+                            <form action="/dislike" method="POST">
+                                <input type="hidden" name="postId" value="{{this.id}}">
+                                <button id="dislike-button" {{#if this.hasDisliked}}disabled{{/if}}>Dislike</button>
+                                <p>{{#if this.dislikes}}{{this.dislikes}}{{else}}0{{/if}}</p>
+                            </form>
+                        </div>
+                    </div>
+                    <p>{{created_at}}</p>
+                    <form action="/comment" method="GET">
+                        <input type="hidden" name="postId" value="{{this.id}}">
+                        <button id="comment-button" class="btn btn-primary">Se kommentarer</button>
+                    </form>
+                    <form action="/delete" method="POST" style="margin-top: 30px;">
+                        <input type="hidden" name="postId" value="{{this.id}}">
+                        <input type="submit" value="Delete"></form>
+                    </form>
+                </li>
+                {{/each}}
+            </ul>
+        </div>
+        <div id="right-child"></div>
+    </div>
+    
+</body>
+</html>

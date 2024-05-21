@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logga in</title>
+    <link rel="stylesheet" type="text/css" href="../style.css" />
+</head>
+<body>
+    <nav id="nav">
+        <ul>
+            <li><a href="/">Hem</a></li>
+            <li><a href="/login">Logga in</a></li>
+            <li><a href="/register">Registrera</a></li>
+            <li><a href="/profil">Profil</a></li>
+        </ul>
+    </nav>
+
+    <div id="container">
+        <div id="left-child">
+        </div>
+        <div id="middle-child">
+            <div class="card" style="width: 18rem;">
+                <div class="card-header">Logga in</div>
+                <div class="card-body">
+                    <form action="/auth/login" method="POST">
+                        <div class="input-field">
+                            <label for="name-lgn" class="form-label">Namn:</label>
+                            <input type="text" class="form-control" id="name-lgn" name="name">                        
+                        </div>
+                        <div class="input-field">
+                            <label for="password-lgn" class="form-label">Lösenord:</label>
+                            <input type="password" class="form-control" id="password-lgn" name="password">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Logga in</button>
+                    </form>
+                    <p>Har du inte ett konto?</p>
+                    <a href="/register" class="btn btn-primary" id="register-path-button">Registrera dig</a>
+                    <p>Vill du logga ut?</p>
+                    <form action="/logout" method="GET">
+                        <input type="submit" value="Logga ut" class="btn btn-primary">
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="right-child">
+        </div>
+    </div>
+    {{#if message }}
+        <h4 class="alert alert-danger mt-4">{{message}}</h4>
+    {{/if}}
+    {{#if messages.error }}
+        <div class="alert alert-danger">{{ messages.error }}</div>
+    {{/if}}
+    {{#if messages.success }}
+        <div class="alert alert-success">{{ messages.success }}</div>
+    {{/if}}
+
+</body>
+</html>

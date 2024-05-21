@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatt sida</title>
+    <link rel="stylesheet" type="text/css" href="../style.css" />
+</head>
+<body>
+    <nav id="nav">
+        <ul>
+            <li><a href="/">Hem</a></li>
+            <li><a href="/login">Logga in</a></li>
+            <li><a href="/register">Registrera</a></li>
+            <li><a href="/profil">Profil</a></li>
+        </ul>
+    </nav>
+    <div id="container">
+        <div id="left-child"></div>
+        <div id="middle-child">
+            <div id="post-form-container">
+                <h1>Post</h1>
+                <form action="/auth/post" method="POST" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="caption">Caption:</label>
+                        <input type="text" class="form-control" id="caption" name="caption">
+                    </div>
+                    <div class="mb-3">
+                        <label for="description">Description:</label>
+                        <textarea class="form-control" id="description" name="description"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="image">Image:</label>
+                        <input type="file" class="form-control" id="image" name="image">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Post</button>
+                </form>
+            </div>
+        </div>
+        <div id="right-child"></div>
+    </div>
+    {{#if message }}
+        <h4 class="alert alert-danger mt-4">{{message}}</h4>
+    {{/if}}
+</body>
+</html>

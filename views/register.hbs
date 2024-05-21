@@ -1,0 +1,76 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registrera dig</title>
+  <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">-->
+  <link rel="stylesheet" type="text/css" href="../style.css" />
+</head>
+<body>
+  <nav id="nav">
+      <ul>
+          <li><a href="/">Hem</a></li>
+          <li><a href="/login">Logga in</a></li>
+          <li><a href="/register">Registrera</a></li>
+          <li><a href="/profil">Profil</a></li>
+      </ul>
+  </nav>
+
+  <div id="container">
+    <div id="left-child">
+    </div>
+    <div id="middle-child">
+      <div class="card" style="width: 18rem;">
+        <div class="card-header">Registrera dig</div>
+        <div class="card-body">
+          <form action="/auth/register" method="POST">
+            <div class="mb-3">
+              <label for="name-reg" class="form-label">Namn:</label>
+              <input type="text" class="form-control" id="name-reg" name="name"/>
+            </div>
+            <div class="mb-3">
+              <label for="email-reg" class="form-label">E-post:</label>
+              <input type="email" class="form-control" id="email-reg" name="email" required/>
+            </div>
+            <div class="mb-3">
+              <label for="password-reg" class="form-label">Lösenord:</label>
+              <input type="password" class="form-control" id="password-reg" name="password" required/>
+              <small id="passwordHelp" class="form-text text-muted">Lösenordet
+                måste vara minst 8 tecken långt och innehålla minst en stor
+                bokstav, en liten bokstav, en siffra och ett specialtecken.</small>
+
+            </div>
+            <div class="mb-3">
+              <label for="password-conf-reg" class="form-label">Bekräfta
+                lösenord:</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password-conf-reg"
+                name="password_confirm"
+                required
+              />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Registrera dig</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div id="right-child">
+    </div>
+  </div>
+
+  {{#if message}}
+    <h4 class="alert alert-danger mt-4">{{message}}</h4>
+  {{/if}}
+  {{#if messages.error }}
+    <div class="alert alert-danger">{{ messages.error }}</div>
+  {{/if}}
+  {{#if messages.success }}
+    <div class="alert alert-success">{{ messages.success }}</div>
+  {{/if}}
+
+
+</body>
+</html>

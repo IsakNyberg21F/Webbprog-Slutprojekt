@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2X</title>
+    <link rel="stylesheet" type="text/css" href="../style.css" />
+</head>
+<body>
+    <nav id="nav">
+        <ul>
+            <li><a href="/">Hem</a></li>
+            <li><a href="/login">Logga in</a></li>
+            <li><a href="/register">Registrera</a></li>
+            <li><a href="/profil">Profil</a></li>
+        </ul>
+    </nav>
+    <div id="container">
+        <div id="left-child">
+        </div>
+        <div id="middle-child">
+            <ul>
+                <li>
+                    {{#each posts}}
+                    <div style="display: flex;">
+                        <img src="{{#if profile_picture}}{{ profile_picture }}{{else}}/profile_pictures/default_pfp.png{{/if}}" alt="Profile Picture" style="height: 45px; width: 45px; border-radius: 50%;">
+                        <p style="margin-left: 10px;">{{account}}</p>
+                    </div>
+                    <h2>{{caption}}</h2>
+                    <p>{{description}}</p>
+                    <img src="{{image_path}}" alt="Post Image">
+                    <div id="feedback">
+                        <div class="feedback-buttons">
+                            <form action="/like" method="POST">
+                                <input type="hidden" name="postId" value="{{this.id}}">
+                                <button id="like-button" {{#if this.hasLiked}}disabled{{/if}}>Like</button>
+                                <p>{{#if this.likes}}{{this.likes}}{{else}}0{{/if}}</p>
+                            </form>
+
+                        </div>
+                        <div class="feedback-buttons">
+                            <form action="/dislike" method="POST">
+                                <input type="hidden" name="postId" value="{{this.id}}">
+                                <button id="dislike-button" {{#if this.hasDisliked}}disabled{{/if}}>Dislike</button>
+                                <p>{{#if this.dislikes}}{{this.dislikes}}{{else}}0{{/if}}</p>
+                            </form>
+                        </div>
+                    </div>
+                    <p>{{created_at}}</p>
+                    <form action="/comment" method="POST">
+                        <input type="hidden" name="postId" value="{{this.id}}">
+                        <input type="text" name="comment" placeholder="Kommentera">
+                        <button id="comment-button" class="btn btn-primary">Skicka</button>
+                    </form>
+                    {{/each}}
+                </li>
+                {{#if comments}}
+                {{#each comments}}
+                <li>
+                    <p style="font-weight: 700;">{{account}}</p>
+                    <p>{{comment}}</p>
+                    <p style="font-size: xx-small; margin-top: 30px;">{{created_at}}</p>
+                </li>
+                {{/each}}
+                {{/if}}
+            </ul>
+        </div>
+        <div id="right-child">
+        </div>
+    </div>
+    
+</body>
+</html>
